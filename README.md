@@ -172,6 +172,31 @@ protected function onRestoreSuccess(event:InAppPurchaseEvent):void
 //<
 ```
 
+# Manifest changes per market
+
+//> For Google Play Store 
+	<uses-permission android:name="com.android.vending.BILLING" />
+	<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />-->
+	<!--<uses-permission android:name="ir.mservices.market.BILLING" />-->
+//<<
+
+//> For CafeBazaar 
+	<!--<uses-permission android:name="com.android.vending.BILLING" />-->
+	<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />
+	<!--<uses-permission android:name="ir.mservices.market.BILLING" />-->
+//<<
+
+//> For Myket 
+	<!--<uses-permission android:name="com.android.vending.BILLING" />-->
+	<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />-->
+	<uses-permission android:name="ir.mservices.market.BILLING" />
+//<<
+
+//> For CanDo 
+	<!--<uses-permission android:name="com.android.vending.BILLING" />-->
+	<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />-->
+	<!--<uses-permission android:name="ir.mservices.market.BILLING" />-->
+//<<
 
 # Testing
 http://developer.android.com/google/play/billing/billing_testing.html
