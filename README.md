@@ -22,11 +22,29 @@ Extension ID: com.pozirk.AndroidInAppPurchase<br />
 Add "iab-extension.ane" and "air\InAppPurchase\bin\Billing_extension_as3_lib.swc" from package folder to your AIR project.<br />
 Add the following lines to your AIR Aplication-app.xml file inside &lt;manifestAdditions&gt; section:<br />
 <br />
-&lt;uses-permission android:name="com.android.vending.BILLING" /&gt;<br />
 &lt;application android:enabled="true"&gt;<br />
 	&lt;activity android:name="com.pozirk.payment.BillingActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:background="#30000000" /&gt;<br />
 &lt;/application&gt;<br />
 
+For Google Play Store <br />
+&lt;uses-permission android:name="com.android.vending.BILLING" /&gt;<br />
+&lt;!-- &lt;uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /&gt; --&gt;<br />
+&lt;!-- &lt;uses-permission android:name="ir.mservices.market.BILLING" /&gt; --&gt;<br />
+
+For CafeBazaar <br />
+&lt;!-- &lt;uses-permission android:name="com.android.vending.BILLING" /&gt; --&gt;<br />
+&lt;uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /&gt;<br />
+&lt;!-- &lt;uses-permission android:name="ir.mservices.market.BILLING" /&gt; --&gt;<br />
+
+For Myket <br />
+&lt;!-- &lt;uses-permission android:name="com.android.vending.BILLING" /&gt; --&gt;<br />
+&lt;!-- &lt;uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /&gt; --&gt;<br />
+&lt;uses-permission android:name="ir.mservices.market.BILLING" /&gt;<br />
+
+For CanDo <br />
+&lt;!-- &lt;uses-permission android:name="com.android.vending.BILLING" /&gt; --&gt;<br />
+&lt;!-- &lt;uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /&gt; --&gt;<br />
+&lt;!-- &lt;uses-permission android:name="ir.mservices.market.BILLING" /&gt; --&gt;<br />
 
 # Examples
 ```actionscript
@@ -171,32 +189,6 @@ protected function onRestoreSuccess(event:InAppPurchaseEvent):void
 }
 //<
 ```
-
-# Manifest changes per market
-
-//> For Google Play Store 
-	<uses-permission android:name="com.android.vending.BILLING" />
-	<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />-->
-	<!--<uses-permission android:name="ir.mservices.market.BILLING" />-->
-//<<
-
-//> For CafeBazaar 
-	<!--<uses-permission android:name="com.android.vending.BILLING" />-->
-	<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />
-	<!--<uses-permission android:name="ir.mservices.market.BILLING" />-->
-//<<
-
-//> For Myket 
-	<!--<uses-permission android:name="com.android.vending.BILLING" />-->
-	<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />-->
-	<uses-permission android:name="ir.mservices.market.BILLING" />
-//<<
-
-//> For CanDo 
-	<!--<uses-permission android:name="com.android.vending.BILLING" />-->
-	<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />-->
-	<!--<uses-permission android:name="ir.mservices.market.BILLING" />-->
-//<<
 
 # Testing
 http://developer.android.com/google/play/billing/billing_testing.html
