@@ -28,23 +28,14 @@ Add the following lines to your AIR Aplication-app.xml file inside &lt;manifestA
 
 For Google Play Store <br />
 &lt;uses-permission android:name="com.android.vending.BILLING" /&gt;<br />
-&lt;!-- &lt;uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /&gt; --&gt;<br />
-&lt;!-- &lt;uses-permission android:name="ir.mservices.market.BILLING" /&gt; --&gt;<br />
 
 For CafeBazaar <br />
-&lt;!-- &lt;uses-permission android:name="com.android.vending.BILLING" /&gt; --&gt;<br />
 &lt;uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /&gt;<br />
-&lt;!-- &lt;uses-permission android:name="ir.mservices.market.BILLING" /&gt; --&gt;<br />
 
 For Myket <br />
-&lt;!-- &lt;uses-permission android:name="com.android.vending.BILLING" /&gt; --&gt;<br />
-&lt;!-- &lt;uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /&gt; --&gt;<br />
 &lt;uses-permission android:name="ir.mservices.market.BILLING" /&gt;<br />
 
-For CanDo <br />
-&lt;!-- &lt;uses-permission android:name="com.android.vending.BILLING" /&gt; --&gt;<br />
-&lt;!-- &lt;uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /&gt; --&gt;<br />
-&lt;!-- &lt;uses-permission android:name="ir.mservices.market.BILLING" /&gt; --&gt;<br />
+For CanDo (no needs to uses-permission) <br />
 
 # Examples
 ```actionscript
