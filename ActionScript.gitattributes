@@ -1,9 +1,9 @@
 # handle swf's and swc's as binaries #
 ## stackoverflow.com/questions/1529178/git-flash-builder-workflow-how-do-i-set-it-up-so-git-works-smoothly
 
-*.as3 linguist-language=as3
-*.ane linguist-language=as3
-*.java linguist-language=as3
+*.as3 linguist-language=ActionScript
+*.ane linguist-language=ActionScript
+*.java linguist-language=ActionScript
 
 *.swf -crlf -diff -merge
 *.swc -crlf -diff -merge
