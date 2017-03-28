@@ -49,41 +49,40 @@ protected var _iap:InAppPurchase = new InAppPurchase();
 
 ...
 
-//> initialization of InAppPurchase
-	var base64Key:String, bindURL:String, packageURL:String;
-	var market:String = "google";
-	switch(market)
-	{
-		case "google":
-			base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
-			bindURL = "com.android.vending.billing.InAppBillingService.BIND";
-			packageURL = "com.android.vending";
-			break;
-		
-		case "cafebazaar":
-			base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
-			bindURL = "ir.cafebazaar.pardakht.InAppBillingService.BIND";
-			packageURL = "com.farsitel.bazaar";
-			break;
-		
-		case "mayket":
-			base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
-			bindURL = "ir.mservices.market.InAppBillingService.BIND";
-			packageURL = "ir.mservices.market";
-			break;
-		
-		case "cando":
-			base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
-			bindURL = "com.ada.market.service.payment.BIND";
-			packageURL = "com.ada.market";
-			break;
-	}			
-	
-	_iap = new InAppPurchase();
-	_iap.addEventListener(InAppPurchaseEvent.INIT_SUCCESS, onInitSuccess);
-	_iap.addEventListener(InAppPurchaseEvent.INIT_ERROR, onInitError);
-	_iap.init(base64Key, bindURL, packageURL);
-}
+// initialization of InAppPurchase
+var base64Key:String, bindURL:String, packageURL:String;
+var market:String = "google";
+switch(market)
+{
+	case "google":
+		base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
+		bindURL = "com.android.vending.billing.InAppBillingService.BIND";
+		packageURL = "com.android.vending";
+		break;
+
+	case "cafebazaar":
+		base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
+		bindURL = "ir.cafebazaar.pardakht.InAppBillingService.BIND";
+		packageURL = "com.farsitel.bazaar";
+		break;
+
+	case "mayket":
+		base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
+		bindURL = "ir.mservices.market.InAppBillingService.BIND";
+		packageURL = "ir.mservices.market";
+		break;
+
+	case "cando":
+		base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
+		bindURL = "com.ada.market.service.payment.BIND";
+		packageURL = "com.ada.market";
+		break;
+}			
+
+_iap = new InAppPurchase();
+_iap.addEventListener(InAppPurchaseEvent.INIT_SUCCESS, onInitSuccess);
+_iap.addEventListener(InAppPurchaseEvent.INIT_ERROR, onInitError);
+_iap.init(base64Key, bindURL, packageURL);
 
 protected function onInitSuccess(event:InAppPurchaseEvent):void
 {
@@ -94,10 +93,8 @@ protected function onInitError(event:InAppPurchaseEvent):void
 {
 	trace("Billing_extension_test.onInitError(event)", event.data);
 }
-//<
 
-
-//> making the purchase, _iap should be initialized first
+// making the purchase, _iap should be initialized first
 _iap.addEventListener(InAppPurchaseEvent.PURCHASE_SUCCESS, onPurchaseSuccess);
 _iap.addEventListener(InAppPurchaseEvent.PURCHASE_ALREADY_OWNED, onPurchaseSuccess);
 _iap.addEventListener(InAppPurchaseEvent.PURCHASE_ERROR, onPurchaseError);
@@ -112,10 +109,8 @@ protected function onPurchaseError(event:InAppPurchaseEvent):void
 {
 	trace(event.data); //trace error message
 }
-//<
 
-
-//> getting purchased product details, _iap should be initialized first
+// getting purchased product details, _iap should be initialized first
 _iap.addEventListener(InAppPurchaseEvent.RESTORE_SUCCESS, onRestoreSuccess);
 _iap.addEventListener(InAppPurchaseEvent.RESTORE_ERROR, onRestoreError);
 _iap.restore(); //restoring purchased in-app items and subscriptions
@@ -132,9 +127,8 @@ protected function onRestoreError(event:InAppPurchaseEvent):void
 {
 	trace(event.data); //trace error message
 }
-//<
 
-//> getting purchased and not purchased product details
+// getting purchased and not purchased product details
 _iap.addEventListener(InAppPurchaseEvent.RESTORE_SUCCESS, onRestoreSuccess);
 _iap.addEventListener(InAppPurchaseEvent.RESTORE_ERROR, onRestoreError);
 
@@ -160,15 +154,12 @@ protected function onRestoreError(event:InAppPurchaseEvent):void
 {
 	trace(event.data); //trace error message
 }
-//<
 
-
-//> consuming purchased item
-//>> need to retrieve purchased items first
+// consuming purchased item
+// need to retrieve purchased items first
 _iap.addEventListener(InAppPurchaseEvent.RESTORE_SUCCESS, onRestoreSuccess);
 _iap.addEventListener(InAppPurchaseEvent.RESTORE_ERROR, onRestoreError);
 _iap.restore();
-//<<
 
 ...
 
@@ -178,7 +169,6 @@ protected function onRestoreSuccess(event:InAppPurchaseEvent):void
 	_iap.addEventListener(InAppPurchaseEvent.CONSUME_ERROR, onConsumeError);
 	_iap.consume("my.product.id");
 }
-//<
 ```
 
 # Testing
@@ -186,10 +176,10 @@ http://developer.android.com/google/play/billing/billing_testing.html
 
 
 # Misc
-ANE is build for AIR3.6+, in order to rebuild for another version do the following:<br />
-- edit "air\extension.xml" and change 3.6 in very first line to any 3.X you need;<br />
-- edit "build.bat" and in the very last line change path from AIR3.X SDK to any AIR3.X SDK you need;<br />
-- execute "build.bat" to repack the ANE.<br />
+ANE is build for AIR 18.0+, in order to rebuild for another version do the following:<br />
+- edit "air\extension.xml" and change 18.0 in very first line to any X.x you need;<br />
+- edit "package.bat" and in the very last line change path from AIR 18.0 SDK to any AIR X.x SDK you need;<br />
+- execute "package.bat" to repack the ANE.<br />
 
 
 
