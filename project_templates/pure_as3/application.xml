@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<application xmlns="http://ns.adobe.com/air/application/26.0">
+  <id>com.gerantech.trivialdrive</id>
+  <versionNumber>2.0.102</versionNumber>
+  <supportedProfiles>mobileDevice</supportedProfiles>
+  <filename>TrivialDrive</filename>
+  <name>TrivialDrive</name>
+  <description/>
+  <initialWindow>
+    <title>TrivialDrive</title>
+    <content>TrivialDrive.swf</content>
+    <visible>true</visible>
+    <fullScreen>true</fullScreen>
+    <renderMode>direct</renderMode>
+    <systemChrome>standard</systemChrome>
+    <aspectRatio>portrait</aspectRatio>
+    <autoOrients>false</autoOrients>
+    <depthAndStencil>true</depthAndStencil>
+  </initialWindow>
+  <icon>
+    <!--<image48x48>icons/ic_launcher.png</image48x48>-->
+    <!--<image57x57>icons/ic_launcher.png</image57x57>-->
+    <!--<image72x72>icons/ic_launcher.png</image72x72>-->
+    <!--<image76x76>icons/ic_launcher.png</image76x76>-->
+    <image96x96>assets/ic_launcher.png</image96x96>
+    <!--<image114x114>icons/ic_launcher.png</image114x114>-->
+    <!--<image120x120>icons/ic_launcher.png</image120x120>-->
+    <!--<image144x144>icons/ic_launcher.png</image144x144>-->
+    <!--<image152x152>icons/ic_launcher.png</image152x152>-->
+    <!--<image512x512>icons/ic_launcher.png</image512x512>-->
+  </icon>
+  <android>
+    <manifestAdditions><![CDATA[<manifest android:installLocation="auto">
+	<!-- In APP Billing permissions -->
+	<!--<uses-permission android:name="com.android.vending.BILLING" /> <uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /> <uses-permission android:name="ir.mservices.market.BILLING" /> <uses-permission android:name="com.arioclub.android.sdk.IAB" />-->
+	<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<application android:enabled="true">
+		<activity android:name="com.gerantech.extensions.IabActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:background="#30000000" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
+	</application>
+</manifest>]]></manifestAdditions>
+  </android>
+  <iPhone>
+    <InfoAdditions><![CDATA[<key>UIStatusBarStyle</key>
+<string>UIStatusBarStyleBlackOpaque</string>
+<key>UIRequiresPersistentWiFi</key>
+<string>NO</string>
+<key>UIApplicationExitsOnSuspend</key>
+<true />
+<key>UIDeviceFamily</key>
+<array>
+	<string>1</string>
+</array>]]></InfoAdditions>
+    <requestedDisplayResolution>high</requestedDisplayResolution>
+  </iPhone>
+  <extensions>
+    <extensionID>com.gerantech.extensions.iabilling</extensionID>
+  </extensions>
+</application>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<application xmlns="http://ns.adobe.com/air/application/26.0">
+	<id>com.gerantech.trivialdrive</id>
+	<versionNumber>2.0.10</versionNumber>
+	<versionLabel></versionLabel>
+	<filename>TrivialDrive</filename>
+	<description/>
+	<name>TrivialDrive</name>
+	<copyright/>
+	<initialWindow>
+		  <content>TrivialDrive.swf</content>
+		  <systemChrome>standard</systemChrome>
+		  <transparent>false</transparent>
+		  <visible>true</visible>
+		  <fullScreen>false</fullScreen>
+		  <aspectRatio>portrait</aspectRatio>
+		  <renderMode>cpu</renderMode>
+		  <autoOrients>false</autoOrients>
+	</initialWindow>
+	<icon>
+		  <image96x96>icon/ic_launcher.png</image96x96>
+	</icon>
+	<customUpdateUI>false</customUpdateUI>
+	<allowBrowserInvocation>false</allowBrowserInvocation>
+	<android>
+		  <manifestAdditions>
+			<![CDATA[
+			<manifest android:installLocation="auto">
+			<!-- In APP Billing permissions -->
+			<!--<uses-permission android:name="com.android.vending.BILLING" /> <uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /> <uses-permission android:name="ir.mservices.market.BILLING" /> <uses-permission android:name="com.arioclub.android.sdk.IAB" />-->
+			<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />
+			<uses-permission android:name="android.permission.INTERNET" />
+			<application android:enabled="true">
+				<activity android:name="com.gerantech.extensions.IabActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:background="#30000000" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
+			</application>
+			</manifest>
+			
+		]]>
+		</manifestAdditions>
+	</android>
+	<iPhone>
+		  <InfoAdditions>
+			<![CDATA[
+			<key>UIDeviceFamily</key>
+			<array>
+				<string>1</string>
+				<string>2</string>
+			</array>
+		]]>
+		</InfoAdditions>
+		  <requestedDisplayResolution>high</requestedDisplayResolution>
+	</iPhone>
+	
+  <extensions>
+    <extensionID>com.gerantech.extensions.iabilling</extensionID>
+  </extensions>
+</application>
