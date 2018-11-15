@@ -1,10 +1,12 @@
 # About
 air-extension-inappbilling is an Adobe AIR native extension (ANE) to purchase products for multiple Android markets (locals and global).<br />
-[راهنمــای فـــارسی](https://www.google.com)
+[...........راهنمــــــای فـــــــارسی..........](https://github.com/manjav/air-extension-inappbilling/edit/master/README_FA.md)
 
+We prepared 2 type projects template:
+1. [Adobe Flash Professional ( Animate ) template](https://github.com/manjav/air-extension-inappbilling/edit/master/README_FA.md) for Flash Designers.
+2. [Pure Action Script template](https://github.com/manjav/air-extension-inappbilling/edit/master/README_FA.md) for Flash Developers to use Flash Builder, Flash Develop or Intellij Idea.
 
-![alt text](https://www.abelandcole.co.uk/media/2529_17826_z.jpg)
-
+![Test Project](https://github.com/manjav/air-extension-inappbilling/blob/master/files/TrivialDrive_EN.png)
 
 It uses Google Play In-app Billing version 3 API.<br />
 Supported functionality:<br />
@@ -14,16 +16,20 @@ Supported functionality:<br />
 - subscriptions (not tested).<br />
 
 # Docs
-Please, read docs and try ANE before asking any questions.<br />
+Please, read docs and try ANE before asking any questions.<br/>
 http://developer.android.com/google/play/billing/index.html<br />
 http://help.adobe.com/en_US/air/extensions/index.html<br />
 
 
 # Step 1 : Insert ANE file into your Adobe AIR Project
-Add "iabilling.ane" file from package folder to your Adobe AIR project.<br />
+Add [iabilling.ane](https://github.com/manjav/air-extension-inappbilling/blob/master/package/iabilling.ane) file from package folder to your Adobe AIR project.<br />
+<b>Tutorial:</b> [How to embed ANEs into FlashBuilder, FlashCC and FlashDevelop](https://www.youtube.com/watch?v=Oubsb_3F3ec&list=PL_mmSjScdnxnSDTMYb1iDX4LemhIJrt1O)
 
+# Step 2 : Initializing based on selected market:
+Insert All uses items into '_items' array.
 
-# Step 2 : Initializing:
+Get base64key from market console and replace with '==5AMP1E8A5E64KE7=='.<br />
+Also if you want add new market, you had to added new case with 'bindeURL' and 'packageURL'.
 ```actionscript
 import com.gerantech.extensions.iab.Iab;
 import com.gerantech.extensions.iab.Purchase;
@@ -36,30 +42,30 @@ var _marketName:String = "google";
 var base64Key:String, bindURL:String, packageURL:String;
 switch ( _marketName ) {
 	case "google":
-		base64Key = "MIHNMA0GCSqGSIb3DsQEBAUAA4G7A...EAAQ==";
+		base64Key = "==5AMP1E8A5E64KE7==";
 		bindURL = "com.android.vending.billing.InAppBillingService.BIND";
 		packageURL = "com.android.vending";
 		break;
 
+	case "cafebazaar":
+		base64Key = "==5AMP1E8A5E64KE7==";
+		bindURL = "ir.cafebazaar.pardakht.InAppBillingService.BIND";
+		packageURL = "com.farsitel.bazaar";
+		break;
+
 	case "myket":
-		base64Key = "MIHNMA0GCSqGSIb3DsQEBAUAA4G7A...EAAQ==";
+		base64Key = "==5AMP1E8A5E64KE7==";
 		bindURL = "ir.mservices.market.InAppBillingService.BIND";
 		packageURL = "ir.mservices.market";
 		break;
 
 	case "cando":
-		base64Key = "MIHNMA0GCSqGSIb3DsQEBAUAA4G7A...EAAQ==";
+		base64Key = "==5AMP1E8A5E64KE7==";
 		bindURL = "com.ada.market.service.payment.BIND";
 		packageURL = "com.ada.market";
 		break;
-
-	case "cafebazaar":
-		base64Key = "MIHNMA0GCSqGSIb3DsQEBAUAA4G7A...EAAQ==";
-		bindURL = "ir.cafebazaar.pardakht.InAppBillingService.BIND";
-		packageURL = "com.farsitel.bazaar";
-		break;
 	default:
-		trace("BillingManager ::: market name[" + _marketName + "] is invalid");
+		trace("BillingManager ::: market name[" + _marketName + "] is invalid.");
 		break;
 }
 
@@ -87,7 +93,7 @@ function queryInventory():void {
 function iabQueryInventoryFinishedHandler(event:IabEvent):void {
 	Iab.instance.removeEventListener(IabEvent.QUERY_INVENTORY_FINISHED, iabQueryInventoryFinishedHandler);
 	if ( !event.result.succeed ) {
-		trace("iabQueryInventoryFinishedHandler failed to finish");
+		trace("iabQueryInventoryFinishedHandler failed to finish.");
 		return;
 	}
 
@@ -136,7 +142,7 @@ function iabConsumeFinishedHandler(event:IabEvent):void {
 	trace("BillingManager ::: iabConsumeFinishedHandler", event.result.message);
 	Iab.instance.removeEventListener(IabEvent.CONSUME_FINISHED, iabConsumeFinishedHandler);
 	if (!event.result.succeed) {
-	    trace("iabConsumeFinishedHandler failed to consume.", event.result.message);
+	    trace("iabConsumeFinishedHandler failed to consume:", event.result.message);
 	    return;
 	}
 }
