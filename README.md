@@ -17,33 +17,11 @@ http://developer.android.com/google/play/billing/index.html<br />
 http://help.adobe.com/en_US/air/extensions/index.html<br />
 
 
-# Installation
-Extension ID: com.gerantech.extensions.iabilling
-Add "iabilling.ane" from package folder to your Adobe AIR project.<br />
-Add the following lines to your AIR Aplication-app.xml file inside &lt;manifestAdditions&gt; section:<br />
+# Step 1 : Insert ANE file into your Adobe AIR Project
+Add "iabilling.ane" file from package folder to your Adobe AIR project.<br />
 
 
-```xml
-<!-- In APP Billing permissions -->
-<uses-permission android:name="android.permission.INTERNET" />
-<!--For Google-->	<uses-permission android:name="com.android.vending.BILLING" />
-<!--For CafeBazaar-->	<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />-->
-<!--For Myket-->	<!--<uses-permission android:name="ir.mservices.market.BILLING" />-->
-<application android:enabled="true" >
-     <activity android:name="com.gerantech.extensions.IabActivity"
-	  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-	  android:background="#30000000"
-	  android:screenOrientation="portrait"
-	  android:configChanges="orientation|keyboardHidden" />
-</application>
-
-<extensions>
-     <extensionID>com.gerantech.extensions.iabilling</extensionID>
-</extensions>
-```
-
-
-# Step 1 : Initializing:
+# Step 2 : Initializing:
 ```actionscript
 import com.gerantech.extensions.iab.Iab;
 import com.gerantech.extensions.iab.Purchase;
@@ -93,15 +71,16 @@ function iabSetupFinishedHandler(event:IabEvent):void {
 }
 ```
 
-# Step 2 : Get all inconsumed purchase items and consume:
+# Step 3 : Get all inconsumed purchase items and consume:
 ```actionscript
 /**Getting purchased product details, Iab should be initialized first</br>
 * if put items args getting purchased and not purchased product details
 */
-public function queryInventory():void {
-//restoring purchased in-app items and subscriptions
-Iab.instance.addEventListener(IabEvent.QUERY_INVENTORY_FINISHED, iabQueryInventoryFinishedHandler);
-Iab.instance.queryInventory();
+function queryInventory():void {
+	//restoring purchased in-app items and subscriptions
+	Iab.instance.addEventListener(IabEvent.QUERY_INVENTORY_FINISHED, iabQueryInventoryFinishedHandler);
+	Iab.instance.queryInventory();
+}
 ...
 function iabQueryInventoryFinishedHandler(event:IabEvent):void {
 	Iab.instance.removeEventListener(IabEvent.QUERY_INVENTORY_FINISHED, iabQueryInventoryFinishedHandler);
@@ -120,7 +99,7 @@ function iabQueryInventoryFinishedHandler(event:IabEvent):void {
 }
 ```
 
-# Step 3 : Making purchase:
+# Step 4 : Making purchase:
 
 ```actionscript
 // making the purchase, Iab should be initialized first
@@ -129,7 +108,7 @@ Iab.instance.purchase(sku, Iab.ITEM_TYPE_INAPP, payload);
 ...
 function iabPurchaseFinishedHandler(event:IabEvent):void {
 	trace("BillingManager ::: iabPurchaseFinishedHandler", event.result.message);
-	Iab.instance.removeEventListener(IabEvent.PURCHASE_FINISHED, iabPurchaseConsumableFinishedHandler);
+	Iab.instance.removeEventListener(IabEvent.PURCHASE_FINISHED, iabPurchaseFinishedHandler);
 	if (!event.result.succeed) {
 	    trace(event.result.response, event.result.message);
 	    return;
@@ -142,60 +121,52 @@ function iabPurchaseFinishedHandler(event:IabEvent):void {
 }
 ```
 
+# Step 6 : Consume purchase items:
+
 ```actionscript
-protected function onRestoreSuccess(event:InAppPurchaseEvent):void
-{
-	//getting details of purchase: time, etc.
-	var purchase:InAppPurchaseDetails = _iap.getPurchaseDetails("my.product.id");
+function consume(sku:String):void {
+	trace("BillingManager ::: consume", sku);
+	Iab.instance.addEventListener(IabEvent.CONSUME_FINISHED, iabConsumeFinishedHandler);
+	Iab.instance.consume(sku);
 }
 
-protected function onRestoreError(event:InAppPurchaseEvent):void
-{
-	trace(event.data); //trace error message
-}
-
-// getting purchased and not purchased product details
-_iap.addEventListener(InAppPurchaseEvent.RESTORE_SUCCESS, onRestoreSuccess);
-_iap.addEventListener(InAppPurchaseEvent.RESTORE_ERROR, onRestoreError);
-
-var items:Array<String> = ["my.product.id1", "my.product.id2", "my.product.id3"];
-var subs:Array<String> = ["my.subs.id1", "my.subs.id2", "my.subs.id3"];
-_iap.restore(items, subs); //restoring purchased + not purchased in-app items and subscriptions
-
-...
-
-protected function onRestoreSuccess(event:InAppPurchaseEvent):void
-{
-	//getting details of product: time, etc.
-	var skuDetails1:InAppSkuDetails = _iap.getSkuDetails("my.product.id1");
-
-	//getting details of product: time, etc.
-	var skuDetails2:InAppSkuDetails = _iap.getSkuDetails("my.subs.id1");
-
-	//getting details of purchase: time, etc.
-	var purchase:InAppPurchaseDetails = _iap.getPurchaseDetails("my.purchased.product.id");
-}
-
-protected function onRestoreError(event:InAppPurchaseEvent):void
-{
-	trace(event.data); //trace error message
-}
-
-// consuming purchased item
-// need to retrieve purchased items first
-_iap.addEventListener(InAppPurchaseEvent.RESTORE_SUCCESS, onRestoreSuccess);
-_iap.addEventListener(InAppPurchaseEvent.RESTORE_ERROR, onRestoreError);
-_iap.restore();
-
-...
-
-protected function onRestoreSuccess(event:InAppPurchaseEvent):void
-{
-	_iap.addEventListener(InAppPurchaseEvent.CONSUME_SUCCESS, onConsumeSuccess);
-	_iap.addEventListener(InAppPurchaseEvent.CONSUME_ERROR, onConsumeError);
-	_iap.consume("my.product.id");
+function iabConsumeFinishedHandler(event:IabEvent):void {
+	trace("BillingManager ::: iabConsumeFinishedHandler", event.result.message);
+	Iab.instance.removeEventListener(IabEvent.CONSUME_FINISHED, iabConsumeFinishedHandler);
+	if (!event.result.succeed) {
+	    trace("iabConsumeFinishedHandler failed to consume.", event.result.message);
+	    return;
+	}
 }
 ```
+# Step 7 : Manifest Edition :
+Add Billing permissions based on selected market
+Add the following lines to your AIR Aplication-app.xml file inside &lt;manifestAdditions&gt;
+
+```xml
+<!-- In APP Billing permissions -->
+<uses-permission android:name="android.permission.INTERNET" />
+<!--For Google-->	<uses-permission android:name="com.android.vending.BILLING" />
+<!--For CafeBazaar-->	<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />-->
+<!--For Myket-->	<!--<uses-permission android:name="ir.mservices.market.BILLING" />-->
+<application android:enabled="true" >
+     <activity android:name="com.gerantech.extensions.IabActivity"
+	  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+	  android:background="#30000000"
+	  android:screenOrientation="portrait"
+	  android:configChanges="orientation|keyboardHidden" />
+</application>
+```
+
+Add extension id
+Extension ID: com.gerantech.extensions.iabilling
+```xml
+<extensions>
+     <extensionID>com.gerantech.extensions.iabilling</extensionID>
+</extensions>
+```
+
+
 
 # Testing
 http://developer.android.com/google/play/billing/billing_testing.html
