@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.gerantech.extensions.iab.IabResult"/>
+    <classEntry path="com.gerantech.extensions.iab.Purchase"/>
+    <classEntry path="com.gerantech.extensions.iab.SkuDetails"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
