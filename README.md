@@ -1,10 +1,7 @@
 # About
-air-extension-inappbilling is an Adobe AIR native extension (ANE) to purchase products for multiple markets (locals and global).<br />
+air-extension-inappbilling is an Adobe AIR native extension (ANE) to purchase products for multiple Android markets (locals and global).<br />
 
 ![alt text](https://www.abelandcole.co.uk/media/2529_17826_z.jpg)
-
-
-## If you dont need multiple stores supporting, you can use [AndroidInAppPurchase](https://github.com/pozirk/AndroidInAppPurchase)
 
 
 It uses Google Play In-app Billing version 3 API.<br />
@@ -42,60 +39,55 @@ For CanDo (no needs to uses-permission) <br />
 
 # Examples
 ```actionscript
-import com.pozirk.payment.android.InAppPurchase;
-import com.pozirk.payment.android.InAppPurchaseEvent;
-import com.pozirk.payment.android.InAppPurchaseDetails;
-
-...
-
 protected var _iap:InAppPurchase = new InAppPurchase();
 
 ...
 
 // initialization of InAppPurchase
+trace("BillingManager ::: start setup", _marketName);
+// provide all sku items
+_items = new Array("com.gerantech.inapptest.item1", "com.gerantech.inapptest.item2", "com.gerantech.inapptest.item3");
 var base64Key:String, bindURL:String, packageURL:String;
-var market:String = "google";
-switch(market)
-{
+switch (_marketName) {
 	case "google":
-		base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
+		base64Key = "MIHNMA0GCSqGSIb3DsQEBAUAA4G7A...EAAQ==";
 		bindURL = "com.android.vending.billing.InAppBillingService.BIND";
 		packageURL = "com.android.vending";
 		break;
 
-	case "cafebazaar":
-		base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
-		bindURL = "ir.cafebazaar.pardakht.InAppBillingService.BIND";
-		packageURL = "com.farsitel.bazaar";
-		break;
-
-	case "mayket":
-		base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
+	case "myket":
+		base64Key = "MIHNMA0GCSqGSIb3DsQEBAUAA4G7A...EAAQ==";
 		bindURL = "ir.mservices.market.InAppBillingService.BIND";
 		packageURL = "ir.mservices.market";
 		break;
 
 	case "cando":
-		base64Key = "YOUR_LICENSE_KEY_FOR_THE_APPLICATION";
+		base64Key = "MIHNMA0GCSqGSIb3DsQEBAUAA4G7A...EAAQ==";
 		bindURL = "com.ada.market.service.payment.BIND";
 		packageURL = "com.ada.market";
 		break;
-}			
 
-_iap = new InAppPurchase();
-_iap.addEventListener(InAppPurchaseEvent.INIT_SUCCESS, onInitSuccess);
-_iap.addEventListener(InAppPurchaseEvent.INIT_ERROR, onInitError);
-_iap.init(base64Key, bindURL, packageURL);
-
-protected function onInitSuccess(event:InAppPurchaseEvent):void
-{
-	trace("Billing_extension_test.onInitSuccess(event)", event.data);
+	case "cafebazaar":
+		base64Key = "MIHNMA0GCSqGSIb3DsQEBAUAA4G7A...EAAQ==";
+		bindURL = "ir.cafebazaar.pardakht.InAppBillingService.BIND";
+		packageURL = "com.farsitel.bazaar";
+		break;
+	default:
+		trace("BillingManager ::: market name[" + _marketName + "] is invalid");
+		break;
 }
 
-protected function onInitError(event:InAppPurchaseEvent):void
-{
-	trace("Billing_extension_test.onInitError(event)", event.data);
+Iab.instance.addEventListener(IabEvent.SETUP_FINISHED, iabSetupFinishedHandler);
+Iab.instance.startSetup(base64Key, bindURL, packageURL);
+
+protected function iabSetupFinishedHandler(event:IabEvent):void {
+	trace("BillingManager ::: iabSetupFinishedHandler", event.result.message);
+	Iab.instance.removeEventListener(IabEvent.SETUP_FINISHED, iabSetupFinishedHandler);
+	queryInventory();
 }
+```
+
+```actionscript
 
 // making the purchase, _iap should be initialized first
 _iap.addEventListener(InAppPurchaseEvent.PURCHASE_SUCCESS, onPurchaseSuccess);
@@ -184,7 +176,3 @@ ANE is build for AIR 18.0+, in order to rebuild for another version do the follo
 - edit "package.bat" and in the very last line change path from AIR 18.0 SDK to any AIR X.x SDK you need;<br />
 - execute "package.bat" to repack the ANE.<br />
 
-
-
-## Thanks to
-[pozirk](https://github.com/pozirk/AndroidInAppPurchase)
