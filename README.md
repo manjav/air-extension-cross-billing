@@ -1,5 +1,7 @@
 # About
 air-extension-inappbilling is an Adobe AIR native extension (ANE) to purchase products for multiple Android markets (locals and global).<br />
+[راهنمــای فـــارسی](https://www.google.com)
+
 
 ![alt text](https://www.abelandcole.co.uk/media/2529_17826_z.jpg)
 
@@ -29,7 +31,7 @@ import com.gerantech.extensions.iab.events.IabEvent;
 ...
 
 // provide all sku items
-_items = new Array("com.gerantech.inapptest.item1", "com.gerantech.inapptest.item2", "com.gerantech.inapptest.item3");
+_items = new Array("my.product.id1", "my.product.id2", "my.product.id3");
 var _marketName:String = "google";
 var base64Key:String, bindURL:String, packageURL:String;
 switch ( _marketName ) {
