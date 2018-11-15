@@ -16,19 +16,19 @@ Supported functionality:<br />
 - subscriptions (not tested).<br />
 
 # Docs
-Please, read docs and try ANE before asking any questions.<br />
+Please, read docs and try ANE before asking any questions.<br/>
 http://developer.android.com/google/play/billing/index.html<br />
 http://help.adobe.com/en_US/air/extensions/index.html<br />
 
 
 # Step 1 : Insert ANE file into your Adobe AIR Project
 Add [iabilling.ane](https://github.com/manjav/air-extension-inappbilling/blob/master/package/iabilling.ane) file from package folder to your Adobe AIR project.<br />
-
+<b>Tutorial:</b> [How to embed ANEs into FlashBuilder, FlashCC and FlashDevelop](https://www.youtube.com/watch?v=Oubsb_3F3ec&list=PL_mmSjScdnxnSDTMYb1iDX4LemhIJrt1O)
 
 # Step 2 : Initializing based on selected market:
-Insert All uses items into '_items' array
+Insert All uses items into '_items' array.
 
-Get base64key from market console and replace with '==5AMP1E8A5E64KE7=='
+Get base64key from market console and replace with '==5AMP1E8A5E64KE7=='.<br />
 Also if you want add new market, you had to added new case with 'bindeURL' and 'packageURL'.
 ```actionscript
 import com.gerantech.extensions.iab.Iab;
