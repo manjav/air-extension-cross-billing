@@ -26,9 +26,9 @@ Add the following lines to your AIR Aplication-app.xml file inside &lt;manifestA
 ```xml
 <!-- In APP Billing permissions -->
 <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="com.android.vending.BILLING" />
-<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />--><!--For CafeBazaar-->
-<!--<uses-permission android:name="ir.mservices.market.BILLING" />--><!--For Myket-->
+<!--For Google-->	<uses-permission android:name="com.android.vending.BILLING" />
+<!--For CafeBazaar-->	<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />-->
+<!--For Myket-->	<!--<uses-permission android:name="ir.mservices.market.BILLING" />-->
 <application android:enabled="true" >
      <activity android:name="com.gerantech.extensions.IabActivity"
 	  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
@@ -43,19 +43,18 @@ Add the following lines to your AIR Aplication-app.xml file inside &lt;manifestA
 ```
 
 
-# Examples
+# Step 1 : Initializing:
 ```actionscript
 import com.gerantech.extensions.iab.Iab;
 import com.gerantech.extensions.iab.Purchase;
 import com.gerantech.extensions.iab.events.IabEvent;
 ...
 
-// initialization of InAppPurchase
-trace("BillingManager ::: start setup", _marketName);
 // provide all sku items
 _items = new Array("com.gerantech.inapptest.item1", "com.gerantech.inapptest.item2", "com.gerantech.inapptest.item3");
+var _marketName:String = "google";
 var base64Key:String, bindURL:String, packageURL:String;
-switch (_marketName) {
+switch ( _marketName ) {
 	case "google":
 		base64Key = "MIHNMA0GCSqGSIb3DsQEBAUAA4G7A...EAAQ==";
 		bindURL = "com.android.vending.billing.InAppBillingService.BIND";
@@ -86,39 +85,64 @@ switch (_marketName) {
 
 Iab.instance.addEventListener(IabEvent.SETUP_FINISHED, iabSetupFinishedHandler);
 Iab.instance.startSetup(base64Key, bindURL, packageURL);
-
-protected function iabSetupFinishedHandler(event:IabEvent):void {
+...
+function iabSetupFinishedHandler(event:IabEvent):void {
 	trace("BillingManager ::: iabSetupFinishedHandler", event.result.message);
 	Iab.instance.removeEventListener(IabEvent.SETUP_FINISHED, iabSetupFinishedHandler);
 	queryInventory();
 }
 ```
 
+# Step 2 : Get all inconsumed purchase items and consume:
 ```actionscript
-
-// making the purchase, _iap should be initialized first
-_iap.addEventListener(InAppPurchaseEvent.PURCHASE_SUCCESS, onPurchaseSuccess);
-_iap.addEventListener(InAppPurchaseEvent.PURCHASE_ALREADY_OWNED, onPurchaseSuccess);
-_iap.addEventListener(InAppPurchaseEvent.PURCHASE_ERROR, onPurchaseError);
-_iap.purchase("my.product.id", InAppPurchaseDetails.TYPE_INAPP);
-
-protected function onPurchaseSuccess(event:InAppPurchaseEvent):void
-{
-	trace(event.data); //product id
-}
-
-protected function onPurchaseError(event:InAppPurchaseEvent):void
-{
-	trace(event.data); //trace error message
-}
-
-// getting purchased product details, _iap should be initialized first
-_iap.addEventListener(InAppPurchaseEvent.RESTORE_SUCCESS, onRestoreSuccess);
-_iap.addEventListener(InAppPurchaseEvent.RESTORE_ERROR, onRestoreError);
-_iap.restore(); //restoring purchased in-app items and subscriptions
-
+/**Getting purchased product details, Iab should be initialized first</br>
+* if put items args getting purchased and not purchased product details
+*/
+public function queryInventory():void {
+//restoring purchased in-app items and subscriptions
+Iab.instance.addEventListener(IabEvent.QUERY_INVENTORY_FINISHED, iabQueryInventoryFinishedHandler);
+Iab.instance.queryInventory();
 ...
+function iabQueryInventoryFinishedHandler(event:IabEvent):void {
+	Iab.instance.removeEventListener(IabEvent.QUERY_INVENTORY_FINISHED, iabQueryInventoryFinishedHandler);
+	if ( !event.result.succeed ) {
+		trace("iabQueryInventoryFinishedHandler failed to finish");
+		return;
+	}
 
+	// consume all remaining items
+	/*for each(var k:String in _items) {
+		var purchase:Purchase = Iab.instance.getPurchase(k);
+		if( purchase == null || purchase.itemType == Iab.ITEM_TYPE_SUBS )
+			continue;
+		consume(purchase.sku);
+	}*/
+}
+```
+
+# Step 3 : Making purchase:
+
+```actionscript
+// making the purchase, Iab should be initialized first
+Iab.instance.addEventListener(IabEvent.PURCHASE_FINISHED, iabPurchaseFinishedHandler);
+Iab.instance.purchase(sku, Iab.ITEM_TYPE_INAPP, payload);
+...
+function iabPurchaseFinishedHandler(event:IabEvent):void {
+	trace("BillingManager ::: iabPurchaseFinishedHandler", event.result.message);
+	Iab.instance.removeEventListener(IabEvent.PURCHASE_FINISHED, iabPurchaseConsumableFinishedHandler);
+	if (!event.result.succeed) {
+	    trace(event.result.response, event.result.message);
+	    return;
+	}
+	var purchase:Purchase = Iab.instance.getPurchase(event.result.purchase.sku);
+	if( purchase == null )
+	    queryInventory();
+	else // if you want immediatly consume after purchase
+	    consume(purchase.sku);
+}
+```
+
+```actionscript
 protected function onRestoreSuccess(event:InAppPurchaseEvent):void
 {
 	//getting details of purchase: time, etc.
