@@ -1,6 +1,9 @@
 # About
 air-extension-inappbilling is an Adobe AIR native extension (ANE) to purchase products for multiple markets (locals and global).<br />
 
+![alt text](https://www.abelandcole.co.uk/media/2529_17826_z.jpg)
+
+
 ## If you dont need multiple stores supporting, you can use [AndroidInAppPurchase](https://github.com/pozirk/AndroidInAppPurchase)
 
 
