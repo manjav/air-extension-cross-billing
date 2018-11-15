@@ -18,29 +18,36 @@ http://help.adobe.com/en_US/air/extensions/index.html<br />
 
 
 # Installation
-Extension ID: com.pozirk.AndroidInAppPurchase<br />
-Add "iab-extension.ane" and "air\InAppPurchase\bin\Billing_extension_as3_lib.swc" from package folder to your AIR project.<br />
+Extension ID: com.gerantech.extensions.iabilling
+Add "iabilling.ane" from package folder to your Adobe AIR project.<br />
 Add the following lines to your AIR Aplication-app.xml file inside &lt;manifestAdditions&gt; section:<br />
-<br />
-&lt;application android:enabled="true"&gt;<br />
-	&lt;activity android:name="com.pozirk.payment.BillingActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:background="#30000000" /&gt;<br />
-&lt;/application&gt;<br />
 
-For Google Play Store <br />
-&lt;uses-permission android:name="com.android.vending.BILLING" /&gt;<br />
 
-For CafeBazaar <br />
-&lt;uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" /&gt;<br />
+```xml
+<!-- In APP Billing permissions -->
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="com.android.vending.BILLING" />
+<!--<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />--><!--For CafeBazaar-->
+<!--<uses-permission android:name="ir.mservices.market.BILLING" />--><!--For Myket-->
+<application android:enabled="true" >
+     <activity android:name="com.gerantech.extensions.IabActivity"
+	  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+	  android:background="#30000000"
+	  android:screenOrientation="portrait"
+	  android:configChanges="orientation|keyboardHidden" />
+</application>
 
-For Myket <br />
-&lt;uses-permission android:name="ir.mservices.market.BILLING" /&gt;<br />
+<extensions>
+     <extensionID>com.gerantech.extensions.iabilling</extensionID>
+</extensions>
+```
 
-For CanDo (no needs to uses-permission) <br />
 
 # Examples
 ```actionscript
-protected var _iap:InAppPurchase = new InAppPurchase();
-
+import com.gerantech.extensions.iab.Iab;
+import com.gerantech.extensions.iab.Purchase;
+import com.gerantech.extensions.iab.events.IabEvent;
 ...
 
 // initialization of InAppPurchase
