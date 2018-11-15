@@ -3,8 +3,8 @@ air-extension-inappbilling is an Adobe AIR native extension (ANE) to purchase pr
 [...........راهنمــــــای فـــــــارسی..........](https://github.com/manjav/air-extension-inappbilling/edit/master/README_FA.md)
 
 We prepared 2 type projects template:
-1. [Adobe Flash Professional ( Animate ) template](https://github.com/manjav/air-extension-inappbilling/edit/master/README_FA.md) for Flash Designers.
-2. [Pure Action Script template](https://github.com/manjav/air-extension-inappbilling/edit/master/README_FA.md) for Flash Developers to use Flash Builder, Flash Develop or Intellij Idea.
+1. [Flash Professional(Animate) template](https://github.com/manjav/air-extension-inappbilling/tree/master/project_templates/flash) for Flash Designers.
+2. [Pure Action Script template](https://github.com/manjav/air-extension-inappbilling/tree/master/project_templates/pure_as3) for Flash Developers to use Flash Builder, Flash Develop or Intellij Idea.
 
 ![Test Project](https://github.com/manjav/air-extension-inappbilling/blob/master/files/TrivialDrive_EN.png)
 
@@ -23,7 +23,7 @@ http://help.adobe.com/en_US/air/extensions/index.html<br />
 
 # Step 1 : Insert ANE file into your Adobe AIR Project
 Add [iabilling.ane](https://github.com/manjav/air-extension-inappbilling/blob/master/package/iabilling.ane) file from package folder to your Adobe AIR project.<br />
-<b>Tutorial:</b> [How to embed ANEs into FlashBuilder, FlashCC and FlashDevelop](https://www.youtube.com/watch?v=Oubsb_3F3ec&list=PL_mmSjScdnxnSDTMYb1iDX4LemhIJrt1O)
+<b>Tutorial:</b> [How to embed ANEs into FlashBuilder, Flash(Animate) and FlashDevelop](https://www.youtube.com/watch?v=Oubsb_3F3ec&list=PL_mmSjScdnxnSDTMYb1iDX4LemhIJrt1O)
 
 # Step 2 : Initializing based on selected market:
 Insert All uses items into '_items' array.
@@ -80,6 +80,7 @@ function iabSetupFinishedHandler(event:IabEvent):void {
 ```
 
 # Step 3 : Get all inconsumed purchase items and consume:
+Sometimes users can not complete purchase flow cause network problems or other fatal errors. you can restore items after initializing to better user experience.   
 ```actionscript
 /**Getting purchased product details, Iab should be initialized first</br>
 * if put items args getting purchased and not purchased product details
@@ -97,7 +98,7 @@ function iabQueryInventoryFinishedHandler(event:IabEvent):void {
 		return;
 	}
 
-	// consume all remaining items
+	// consume all consumable items
 	/*for each(var k:String in _items) {
 		var purchase:Purchase = Iab.instance.getPurchase(k);
 		if( purchase == null || purchase.itemType == Iab.ITEM_TYPE_SUBS )
@@ -108,7 +109,8 @@ function iabQueryInventoryFinishedHandler(event:IabEvent):void {
 ```
 
 # Step 4 : Making purchase:
-
+When user tapped or clicked on 'BUY' button call purchase method. dont forget in order to purchase that item must be consumed.<br/>
+For consumable items you should consume items immediatly after purchase finished in listener method.
 ```actionscript
 // making the purchase, Iab should be initialized first
 Iab.instance.addEventListener(IabEvent.PURCHASE_FINISHED, iabPurchaseFinishedHandler);
@@ -130,7 +132,7 @@ function iabPurchaseFinishedHandler(event:IabEvent):void {
 ```
 
 # Step 6 : Consume purchase items:
-
+For non-consumable item not needs to using this method.
 ```actionscript
 function consume(sku:String):void {
 	trace("BillingManager ::: consume", sku);
