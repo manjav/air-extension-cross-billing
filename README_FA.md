@@ -1,34 +1,41 @@
-# معرفی
-<br/>این افزونه برای  خرید درون برنامه ای کاربران اندروید در بازی های و اپلیکیشن هایی که با ادوبی ایر توسعه یافته اند تهیه شده است. این افزونه شما را از تهیه و نصب کتابخانه سایر مارکت ها بی نیاز کرده و فقط با تغییرات در کد و مانیفست می توانید علاوه بر استفاده برای مارکت گوگل، سایرمارکت های محلی نظیر کافه بازار، مایکت یا ... را در بازی یا نرم افزار خود فعال کنید.
+## <div dir="rtl">معرفی</div>
+
+<p dir="rtl">
+این افزونه برای  خرید درون برنامه ای کاربران اندروید در بازی های و اپلیکیشن هایی که با ادوبی ایر توسعه یافته اند تهیه شده است. این افزونه شما را از تهیه و نصب کتابخانه سایر مارکت ها بی نیاز کرده و فقط با تغییرات در کد و مانیفست می توانید علاوه بر استفاده برای مارکت گوگل، سایرمارکت های محلی نظیر کافه بازار، مایکت یا ... را در بازی یا نرم افزار خود فعال کنید.
+</p>
+
 [.........English Readme..........](https://github.com/manjav/air-extension-inappbilling/edit/master/README.md)
 
-دو نوع پروژه برای تست خرید موجود است:
+<p dir="rtl">دو نوع پروژه برای تست خرید موجود است:</p>
 1. [نرم افزار فلش](https://github.com/manjav/air-extension-inappbilling/tree/master/project_templates/flash) برای طراحان فلش. قابل استفاده در نرم افزار فلش یا همان انیمیت.
-2. [فقط بصورت کد](ttps://github.com/manjav/air-extension-inappbilling/tree/master/project_templates/pure_as3) برای برنامه نویسان فلش، قابل استفاده در فلش بیلدر، فلش دولوپ و سایر IDE ها.
+2. [فقط بصورت کد](https://github.com/manjav/air-extension-inappbilling/tree/master/project_templates/pure_as3) برای برنامه نویسان فلش، قابل استفاده در فلش بیلدر، فلش دولوپ و سایر IDE ها.
 
 ![تصویر بازی](https://github.com/manjav/air-extension-inappbilling/blob/master/files/TrivialDrive_FA.png)
 
-#امکانات
-خرید درون برنامه نسل سه گوگل
-مصرف یا بازیابی خریدهای قبلی مصرف نشده
-امکان استفاده اقلام بصورت پریمیوم
-امکان استفاده اقلام بصورت اشتراک مدت دار
+## <div dir="rtl">امکانات</div>
+<p dir="rtl">
+خرید درون برنامه نسل سه گوگل<br/>
+مصرف یا بازیابی خریدهای قبلی مصرف نشده<br/>
+امکان استفاده اقلام بصورت پریمیوم<br/>
+امکان استفاده اقلام بصورت اشتراک مدت دار</p>
 
-# مستندات
-Please, read docs and try ANE before asking any questions.<br/>
-http://developer.android.com/google/play/billing/index.html<br />
+## <div dir="rtl">مستندات</div>
+http://developer.android.com/google/play/billing/index.html<br/>
 http://help.adobe.com/en_US/air/extensions/index.html<br />
 
 
-# قدم اول - وارد کردن فایل ane به پروژه:
+## <div dir="rtl">قدم اول - وارد کردن فایل ane به پروژه:</div>
 فایل [iabilling.ane](https://github.com/manjav/air-extension-inappbilling/blob/master/package/iabilling.ane) را به پروژه خود اضافه کنید برای آشنایی با این بخش از لینک زیر کمک بگیرید..<br />
 <b>آموزش:</b> [How to embed ANEs into FlashBuilder, Flash(Animate) and FlashDevelop](https://www.youtube.com/watch?v=Oubsb_3F3ec&list=PL_mmSjScdnxnSDTMYb1iDX4LemhIJrt1O)
 
-# قدم دوم - تعریف مارکت مورد نظر به افزونه
+## <div dir="rtl">قدم دوم - تعریف مارکت مورد نظر به افزونه</div>
+<p dir="rtl">
 همه اقلامی که در بازی وجود دارند را به لیست _items اضافه کنید.
 
 هر مارکت برای هر بازی یا اپ یک کد  base64key اختصاص میده که اون رو از مارکت مورد نظر دریافت کنید و در بخش مورد نظر با عبارت '==5AMP1E8A5E64KE7==' جابجا کنید.
 همچنین اگر یک مارکت جدید به افزونه اضافه می کنید  'bindeURL' و 'packageURL' اون رو هم تهیه و به خط بخش های مربوطه اضافه کنید. ما برای مثال گوگل، کافه بازار، مایکت و کندو رو آوردیم که نیازی نیست تهیه کنید.
+</p>
+	
 <b>توجه داشته باشید حتما در فدم ششم باید سطح دسترسی مارکت انتخابی رو تغییر بدید</b>
 
 ```actionscript
@@ -80,8 +87,9 @@ function iabSetupFinishedHandler(event:IabEvent):void {
 }
 ```
 
-# قدم سوم - بازیابی اقلام مصرف نشده و مصرف آن ها پس از شروع به کار نرم افزار:
-کاهی اوقات فرآیند خرید به دلایل مختلف دچار مشکل شده و خرید بصورت کامل انجام نمی شود. شما میتوانید سکه یا جواهر یا هر چیزی که ما جایزه اسمشو می گذاریم، به ازای خرید به بازیکن یا کاربر اعطا می کنید را به پس از فرایند مصرف موکول کنید و اگر در این فرایند کاربران دچار مشکل شدند پس از باز و بسته کردن نرم افزار یا بازی آن را بازیابی و مصرف، جایزه مورد نظر بازیکن را به او اعطا کنید.
+## <div dir="rtl">قدم سوم - بازیابی اقلام مصرف نشده و مصرف آن ها پس از شروع به کار نرم افزار:</div>
+<p dir="rtl">کاهی اوقات فرآیند خرید به دلایل مختلف دچار مشکل شده و خرید بصورت کامل انجام نمی شود. شما میتوانید سکه یا جواهر یا هر چیزی که ما جایزه اسمشو می گذاریم، به ازای خرید به بازیکن یا کاربر اعطا می کنید را به پس از فرایند مصرف موکول کنید و اگر در این فرایند کاربران دچار مشکل شدند پس از باز و بسته کردن نرم افزار یا بازی آن را بازیابی و مصرف، جایزه مورد نظر بازیکن را به او اعطا کنید.</p>
+
 ```actionscript
 /**Getting purchased product details, Iab should be initialized first</br>
 * if put items args getting purchased and not purchased product details
@@ -109,9 +117,11 @@ function iabQueryInventoryFinishedHandler(event:IabEvent):void {
 }
 ```
 
-# قدم چهارم - خرید:
-وقتی کاربر روی دکمه خرید میزنه باید این بخش صدا زده بشه، یادتون باشه برای اقلام مصرفی حتما باید قبل از خرید مجدد همون نوع، باید اون رو مصرف کنید که در قدم سوم و پنجم توضیح دادیم.
+## <div dir="rtl">قدم چهارم - خرید:</div>
+<p dir="rtl">وقتی کاربر روی دکمه خرید میزنه باید این بخش صدا زده بشه، یادتون باشه برای اقلام مصرفی حتما باید قبل از خرید مجدد همون نوع، باید اون رو مصرف کنید که در قدم سوم و پنجم توضیح دادیم.
 در کد هم مشاهده می کنید که پس از موفقیت در خرید اقدام به مصرف اقلام مصرفی میشه
+</p>
+
 ```actionscript
 // making the purchase, Iab should be initialized first
 Iab.instance.addEventListener(IabEvent.PURCHASE_FINISHED, iabPurchaseFinishedHandler);
@@ -132,8 +142,9 @@ function iabPurchaseFinishedHandler(event:IabEvent):void {
 }
 ```
 
-# قدم پنجم - مصرف خرید:
-توجه داشته باشید اقلام غیر مصرفی مثل پریمیوم (عدم مشاهده تبلیغات و ...) نیاز به فراخوانی این بخش نخواهند داشت.
+## <div dir="rtl">قدم پنجم - مصرف خرید:</div>
+<p dir="rtl">توجه داشته باشید اقلام غیر مصرفی مثل پریمیوم (عدم مشاهده تبلیغات و ...) نیاز به فراخوانی این بخش نخواهند داشت.</p>
+
 ```actionscript
 function consume(sku:String):void {
 	trace("BillingManager ::: consume", sku);
@@ -150,9 +161,11 @@ function iabConsumeFinishedHandler(event:IabEvent):void {
 	}
 }
 ```
-# قدم هفتم - تغییرات مانیفست:
-توجه داشته باشید در قدم دوم شما مارکت مورد نظر را تعیین می کردید اکنون نیز می بایست سطح دسترسی مارکت مورد نظر را در مانیفست اضافه کنید.
-به فایل aplication-app.xml و بخش &lt;manifestAdditions&gt; بروید و بر اساس مارکت انتخابی تغییرات را اعمال کنید. توجه داشته باشید فقط سطح دسترسی یک مارکت را در مانیفست بصورت فعال باقی بگذارید.
+
+## <dir dir="rtl">قدم ششم - تغییرات مانیفست:</dir>
+<p dir="rtl">توجه داشته باشید در قدم دوم شما مارکت مورد نظر را تعیین می کردید اکنون نیز می بایست سطح دسترسی مارکت مورد نظر را در مانیفست اضافه کنید.</p>
+به فایل aplication-app.xml و بخش &lt;manifestAdditions&gt; بروید و بر اساس مارکت انتخابی تغییرات را اعمال کنید. توجه داشته باشید
+<p dir="rtl"><b>فقط سطح دسترسی یک مارکت را در مانیفست بصورت فعال باقی بگذارید.</b></p>
 
 ```xml
 <!-- In APP Billing permissions -->
@@ -169,8 +182,9 @@ function iabConsumeFinishedHandler(event:IabEvent):void {
 </application>
 ```
 
-شناسه افزونه را به انتهای مانیفست اضافه کنید.
+<p dir="rtl">شناسه افزونه را به انتهای مانیفست اضافه کنید.</p>
 Extension ID: com.gerantech.extensions.iabilling
+
 ```xml
 <extensions>
      <extensionID>com.gerantech.extensions.iabilling</extensionID>
@@ -179,11 +193,11 @@ Extension ID: com.gerantech.extensions.iabilling
 
 
 
-# آزمایش:
+## <div dir="rtl">آزمایش:</div>
 http://developer.android.com/google/play/billing/billing_testing.html
 
 
-# سایر:
+## <div dir="rtl">سایر:</div>
 ANE is build for AIR 18.0+, in order to rebuild for another version do the following:<br />
 - edit "air\extension.xml" and change 18.0 in very first line to any X.x you need;<br />
 - edit "package.bat" and in the very last line change path from AIR 18.0 SDK to any AIR X.x SDK you need;<br />
