@@ -131,7 +131,7 @@ function iabPurchaseFinishedHandler(event:IabEvent):void {
 }
 ```
 
-# Step 6 : Consume purchase items:
+# Step 5 : Consume purchase items:
 For non-consumable item not needs to using this method.
 ```actionscript
 function consume(sku:String):void {
@@ -149,7 +149,7 @@ function iabConsumeFinishedHandler(event:IabEvent):void {
 	}
 }
 ```
-# Step 7 : Manifest Edition :
+# Step 6 : Manifest Edition :
 Add Billing permissions based on selected market
 Add the following lines to your AIR Aplication-app.xml file inside &lt;manifestAdditions&gt;
 
