@@ -1,6 +1,6 @@
 # About
 air-extension-inappbilling is an Adobe AIR native extension (ANE) to purchase products for multiple Android markets (locals and global).<br />
-[...........راهنمــــــای فـــــــارسی..........](https://github.com/manjav/air-extension-inappbilling/edit/master/README_FA.md)
+[...........راهنمــــــای فـــــــارسی..........](https://github.com/manjav/air-extension-inappbilling/blob/master/README_FA.md)
 
 We prepared 2 type projects template:
 1. [Flash Professional(Animate) template](https://github.com/manjav/air-extension-inappbilling/tree/master/project_templates/flash) for Flash Designers.
