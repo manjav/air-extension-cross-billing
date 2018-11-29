@@ -107,6 +107,11 @@ public class TrivialDrive extends Sprite
             _gauge.setTo(_gasLevel);
         }
 
+        // Read gas level from local storage
+        var sharedObj:SharedObject = SharedObject.getLocal("saveData");
+        _gasLevel = sharedObj.data.gasLevel;
+        _gauge.setTo(_gasLevel);
+
         // Remove wait assets
         removeChild(_waitBackground);
         removeChild(_waitIcon);
@@ -122,12 +127,24 @@ public class TrivialDrive extends Sprite
         if (_gasLevel >= 0) // _gasLevel = -1 means infinite gas (subscribed user)
             _gasLevel++;
         _gauge.setTo(_gasLevel);
+
+        // save gas level locally
+        saveGasLevel();
     }
 
     protected function drive(event:MouseEvent):void {
         if (_gasLevel > 0)
             _gasLevel--;
         _gauge.setTo(_gasLevel);
+
+        // save gas level locally
+        saveGasLevel();
+    }
+
+    private function saveGasLevel():void {
+        var sharedObj:SharedObject = SharedObject.getLocal("saveData");
+        sharedObj.data.gasLevel = _gasLevel;
+        sharedObj.flush();
     }
 
     protected function upgrade(event:MouseEvent):void {
